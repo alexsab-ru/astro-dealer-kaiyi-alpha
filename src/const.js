@@ -16,18 +16,20 @@ const children = Object.keys(groupModelsByBrand).reduce((acc, key) => {
 	acc[key] = groupModelsByBrand[key].map(model => ( { url: `models/${model.id}/`, name: `${model.name.toUpperCase()}`, thumb: model.thumb } ) );
 	return acc;
 }, {});
+import modelsData from '@/data/models.json';
+const models = modelsData.filter(model => model.show);
 export const LINKS_MENU = [
 	{url: 'cars/', name: 'Авто в наличии'},
 	// {url: 'catalog/', name: 'Каталог'},
-	// {url: 'used_cars/', name: 'Авто с пробегом'},
+	{url: 'used_cars/', name: 'Авто с пробегом'},
 	{ 
 		url: 'models/', 
 		name: 'Модели',
-		children
+		children: models.map(model => ( { url: `models/${model.id}/`, name: `${model?.mark_id} ${model.name.toUpperCase()}` } ) )
 	},
 	// {url: 'trade-in/', name: 'Оценка автомобиля'},
-	{url: 'special-offers/', name: 'Спецпредложения'},
-	{url: 'news/', name: 'Новости'},
+	// {url: 'special-offers/', name: 'Спецпредложения'},
+	// {url: 'news/', name: 'Новости'},
 	{url: 'test-drive/', name: 'Запись на тест-драйв'},
 	{url: 'service-request/', name: 'Запись на сервис'},
 	{url: '#services', name: 'Услуги'},
